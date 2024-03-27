@@ -1,0 +1,16 @@
+<div class="container mx-auto h-full" style="padding-top: 30vh">
+  <div class="grid md:grid-cols-2 grid-cols-1">
+    <div class="order-first md:order-last">
+      <div>3d home model will go here</div>
+    </div>
+    <div appIntersectionObserver class="hidden-div">
+      <div>
+        <h1 class="title">Our Services</h1>
+        <h3 class="sub-title">{{ services[currentServiceIndex].name }}</h3>
+      </div>
+      <p>
+        {{ services[currentServiceIndex].description }}
+      </p>
+    </div>
+  </div>
+</div>
