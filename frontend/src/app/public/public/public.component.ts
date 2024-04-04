@@ -20,74 +20,80 @@ export class PublicComponent {
     }
 
     this.isScrolling = true;
+
     const direction = event.deltaY > 0 ? 1 : -1;
     const currentSection = this.sections[this.currentSectionIndex];
     const nextSectionIndex = this.currentSectionIndex + direction;
-
-    if (
-      direction === 1 &&
-      currentSection === 'services' &&
-      !this.endOfServicesReached
-    ) {
-      this.isScrolling = false;
-      return; // Don't scroll down if end of services not reached
-    }
 
     if (nextSectionIndex >= 0 && nextSectionIndex < this.sections.length) {
       const nextSection = this.sections[nextSectionIndex];
       const currentSectionElement = document.getElementById(currentSection);
       const targetDiv = currentSectionElement?.querySelector('.hidden-div');
-
-      if (targetDiv && direction === 1) {
-        targetDiv.classList.add('fade-out');
-      }
-
       const nextSectionElement = document.getElementById(nextSection);
-      if (nextSectionElement) {
-        nextSectionElement.scrollIntoView({ behavior: 'smooth' });
-        this.currentSectionIndex = nextSectionIndex;
-      }
-    }
 
-    setTimeout(() => {
-      this.isScrolling = false;
-      const currentSection = this.sections[this.currentSectionIndex];
-      const currentSectionElement = document.getElementById(currentSection);
-      const targetDiv = currentSectionElement?.querySelector('.hidden-div');
-
-      if (targetDiv && direction === -1) {
+      if (targetDiv && nextSection) {
+        targetDiv.classList.add('fade-out');
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        if (nextSectionElement) {
+          nextSectionElement.scrollIntoView({ behavior: 'smooth' });
+          this.currentSectionIndex = nextSectionIndex;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        targetDiv.classList.remove('fade-out');
+      } else if (targetDiv && nextSection && direction === -1) {
+        targetDiv.classList.add('fade-out');
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        if (nextSectionElement) {
+          nextSectionElement.scrollIntoView({ behavior: 'smooth' });
+          this.currentSectionIndex = nextSectionIndex;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 500));
         targetDiv.classList.remove('fade-out');
       }
-    }, 500); // Adjust delay as needed
-  }
-
-  onEndOfServices() {
-    // Handle scroll to the next section
-    this.endOfServicesReached = true;
-    console.log(
-      'end of services reached from public component, value is ' +
-        this.endOfServicesReached
-    );
-    return;
-  }
-
-  onStartOfServices() {
-    // Reset endOfServicesReached flag
-    this.endOfServicesReached = false;
-
-    // Handle scroll to the previous section
-    this.currentSectionIndex -= 1;
-    this.currentSectionIndex = Math.max(
-      0,
-      Math.min(this.currentSectionIndex, this.sections.length - 1)
-    );
-    const previousSection = document.getElementById(
-      this.sections[this.currentSectionIndex]
-    );
-    if (previousSection) {
-      previousSection.scrollIntoView({ behavior: 'smooth' });
+      this.isScrolling = false;
     }
+
+    // setTimeout(() => {
+    //   this.isScrolling = false;
+    //   const currentSection = this.sections[this.currentSectionIndex];
+    //   const currentSectionElement = document.getElementById(currentSection);
+    //   const targetDiv = currentSectionElement?.querySelector('.hidden-div');
+
+    //   if (targetDiv && direction === -1) {
+    //     targetDiv.classList.remove('fade-out');
+    //   }
+    // }, 500); // Adjust delay as needed
   }
+
+  // onEndOfServices() {
+  //   // Handle scroll to the next section
+  //   this.endOfServicesReached = true;
+  //   console.log(
+  //     'End of services reached from public component. Value is ' +
+  //       this.endOfServicesReached
+  //   );
+  // }
+
+  // onStartOfServices() {
+  //   // Reset endOfServicesReached flag
+  //   this.endOfServicesReached = true;
+  //   console.log(
+  //     'Start of services reached from public component. Value is ' +
+  //       this.endOfServicesReached
+  //   );
+  //   // Handle scroll to the previous section
+  //   this.currentSectionIndex -= 1;
+  //   this.currentSectionIndex = Math.max(
+  //     0,
+  //     Math.min(this.currentSectionIndex, this.sections.length - 1)
+  //   );
+  //   const previousSection = document.getElementById(
+  //     this.sections[this.currentSectionIndex]
+  //   );
+  //   if (previousSection) {
+  //     previousSection.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // }
 
   ngOnInit() {}
 }

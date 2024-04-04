@@ -46,37 +46,35 @@ div {
 
 .hidden-div {
   opacity: 0;
-  transform: translateX(-5%);
+  transform: translateX(-15%);
+  transition: all 0.5s ease-in-out;
 }
+.hidden-div h3 {
+  transform: translateX(5%);
+  transition: all 0.5s ease-in-out 1s;
+}
+
 .show {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
-
+.show h3 {
+  transform: translateX(0);
+  transition: all 0.5s ease-in-out;
+}
 .fade-in {
   opacity: 1;
   transform: translateX(0%);
-  transition: all 0.5s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .fade-out {
   opacity: 0;
-  transform: translateX(-5%);
+  transform: translateX(-15%);
   transition: all 0.5s ease-in-out;
 }
-
-.hidden-div h3 {
+.fade-out h3 {
   transform: translateX(5%);
-  transition: 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
-/* .hidden-div p {
-  transform: translateX(5%);
-  transition: 0.5s ease-in-out;
-} */
-.show h3 {
-  transform: translateX(0);
-}
-/* .show p {
-  transform: translateX(0);
-} */
