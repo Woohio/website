@@ -1,11 +1,29 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css'],
+  animations: [
+    trigger('slideIn', [
+      transition('* => *', [
+        style({ transform: 'translateY(-100%)', opacity: 0 }),
+        animate(
+          '300ms ease-out',
+          style({ transform: 'translateY(0)', opacity: 1 })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class ServicesComponent implements OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
@@ -72,6 +90,7 @@ export class ServicesComponent implements OnDestroy {
 
   selectService(index: number): void {
     this.currentServiceIndex = index;
+
     this.resetAutoChangeTimeout();
   }
 

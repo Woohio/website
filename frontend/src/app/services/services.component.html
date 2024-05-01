@@ -10,7 +10,9 @@
       >
         <div
           class="service-item"
-          [ngClass]="{ active: currentServiceIndex === i }"
+          [ngClass]="{
+            active: currentServiceIndex === i
+          }"
         >
           <div class="loader" *ngIf="currentServiceIndex === i"></div>
           <svg
@@ -64,9 +66,11 @@
       <div appIntersectionObserver class="hidden-div">
         <div>
           <h1 class="title">Our Services</h1>
-          <h3 class="sub-title">{{ services[currentServiceIndex].name }}</h3>
+          <h3 class="sub-title" [@slideIn]="currentServiceIndex">
+            {{ services[currentServiceIndex].name }}
+          </h3>
         </div>
-        <p>
+        <p [@slideIn]="currentServiceIndex">
           {{ services[currentServiceIndex].description }}
         </p>
       </div>
