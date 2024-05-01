@@ -1,0 +1,103 @@
+.service-sidebar {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  display: flex;
+}
+/* Styles for circular loader animation */
+.service-item {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%; /* Adjust loader size */
+  height: 200%;
+  border-radius: 50%;
+  border: 1.2px solid transparent; /* Loader color and style */
+  /* Adjust animation duration here */
+  pointer-events: none; /* Prevent click events on loader */
+  opacity: 0; /* Hide loader initially */
+  background-color: rgba(0, 0, 0, 0.05);
+  animation: loaderAnimation 3.5s linear infinite;
+  transition: all 3.5s ease-in-out;
+  z-index: -1;
+}
+
+.service-item.active .loader {
+  opacity: 1; /* Show loader when service is active */
+}
+
+@keyframes loaderAnimation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg); /* Start from 90 degrees */
+    border-top-color: transparent; /* Hide the top border */
+    border-right-color: rgba(
+      0,
+      0,
+      0,
+      0.3
+    ); /* Start filling from the right side */
+    border-bottom-color: transparent; /* Hide the bottom border */
+    border-left-color: transparent; /* Hide the left border */
+    border-width: 1.2px; /* Initial border width */
+
+    border-radius: 50%;
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(90deg); /* Start from 90 degrees */
+    border-top-color: transparent; /* Hide the top border */
+    border-right-color: rgba(
+      0,
+      0,
+      0,
+      0.3
+    ); /* Start filling from the right side */
+    border-bottom-color: rgba(0, 0, 0, 0.3); /* Hide the bottom border */
+    border-left-color: transparent; /* Hide the left border */
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(180deg); /* Start from 90 degrees */
+    border-top-color: transparent; /* Hide the top border */
+    border-right-color: rgba(
+      0,
+      0,
+      0,
+      0.3
+    ); /* Start filling from the right side */
+    border-bottom-color: rgba(0, 0, 0, 0.3); /* Hide the bottom border */
+    border-left-color: rgba(0, 0, 0, 0.3); /* Hide the left border */
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg); /* Start from 90 degrees */
+    border-top-color: rgba(0, 0, 0, 0.3); /* Hide the top border */
+    border-right-color: rgba(
+      0,
+      0,
+      0,
+      0.3
+    ); /* Start filling from the right side */
+    border-bottom-color: rgba(0, 0, 0, 0.3); /* Hide the bottom border */
+    border-left-color: rgba(0, 0, 0, 0.3); /* Hide the left border */
+  }
+}
+
+/*
+@keyframes loaderAnimation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    border-top-color: transparent;
+    border-right-color: #007bff;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-width: 2px;
+
+    border-radius: 50%;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+	 */

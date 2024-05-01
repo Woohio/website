@@ -1,11 +1,16 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css'],
 })
-export class ServicesComponent {
+export class ServicesComponent implements OnDestroy {
+  private destroy$: Subject<void> = new Subject<void>();
+  private autoChangeTimeout: any; // Hold reference to auto change timeout
+
   services = [
     {
       id: 0,
@@ -38,5 +43,46 @@ export class ServicesComponent {
   ];
 
   currentServiceIndex = 0;
-  constructor(private cdr: ChangeDetectorRef) {}
+
+  constructor(private cdr: ChangeDetectorRef) {
+    this.startAutoChange();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  startAutoChange(): void {
+    interval(3500)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        if (!this.autoChangeTimeout) {
+          this.nextService();
+          this.cdr.detectChanges();
+        }
+      });
+  }
+
+  nextService(): void {
+    this.currentServiceIndex =
+      (this.currentServiceIndex + 1) % this.services.length;
+    this.resetAutoChangeTimeout();
+  }
+
+  selectService(index: number): void {
+    this.currentServiceIndex = index;
+    this.resetAutoChangeTimeout();
+  }
+
+  resetAutoChangeTimeout(): void {
+    if (this.autoChangeTimeout) {
+      clearTimeout(this.autoChangeTimeout);
+    }
+    this.autoChangeTimeout = setTimeout(() => {
+      this.autoChangeTimeout = null;
+      this.nextService(); // Continue to the next service after timeout
+      this.cdr.detectChanges();
+    }, 3500); // Delay until next auto change time (3.5 seconds)
+  }
 }

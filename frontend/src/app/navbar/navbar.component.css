@@ -1,0 +1,8 @@
+.navbar a {
+  display: grid;
+  place-content: center;
+}
+
+.navbar a svg path {
+  /* stroke: red; */
+}

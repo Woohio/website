@@ -25,6 +25,11 @@ export class PublicComponent {
     const currentSection = this.sections[this.currentSectionIndex];
     const nextSectionIndex = this.currentSectionIndex + direction;
 
+    if (nextSectionIndex < 0 || nextSectionIndex > 4) {
+      this.isScrolling = false;
+      return;
+    }
+
     if (nextSectionIndex >= 0 && nextSectionIndex < this.sections.length) {
       const nextSection = this.sections[nextSectionIndex];
       const currentSectionElement = document.getElementById(currentSection);
@@ -52,48 +57,7 @@ export class PublicComponent {
       }
       this.isScrolling = false;
     }
-
-    // setTimeout(() => {
-    //   this.isScrolling = false;
-    //   const currentSection = this.sections[this.currentSectionIndex];
-    //   const currentSectionElement = document.getElementById(currentSection);
-    //   const targetDiv = currentSectionElement?.querySelector('.hidden-div');
-
-    //   if (targetDiv && direction === -1) {
-    //     targetDiv.classList.remove('fade-out');
-    //   }
-    // }, 500); // Adjust delay as needed
   }
-
-  // onEndOfServices() {
-  //   // Handle scroll to the next section
-  //   this.endOfServicesReached = true;
-  //   console.log(
-  //     'End of services reached from public component. Value is ' +
-  //       this.endOfServicesReached
-  //   );
-  // }
-
-  // onStartOfServices() {
-  //   // Reset endOfServicesReached flag
-  //   this.endOfServicesReached = true;
-  //   console.log(
-  //     'Start of services reached from public component. Value is ' +
-  //       this.endOfServicesReached
-  //   );
-  //   // Handle scroll to the previous section
-  //   this.currentSectionIndex -= 1;
-  //   this.currentSectionIndex = Math.max(
-  //     0,
-  //     Math.min(this.currentSectionIndex, this.sections.length - 1)
-  //   );
-  //   const previousSection = document.getElementById(
-  //     this.sections[this.currentSectionIndex]
-  //   );
-  //   if (previousSection) {
-  //     previousSection.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  // }
 
   ngOnInit() {}
 }

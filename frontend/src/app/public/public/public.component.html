@@ -1,14 +1,14 @@
-<div class="w-screen bg-red-300 py-10 fixed z-10">
+<div class="w-screen py-10 fixed z-10">
   <app-navbar></app-navbar>
 </div>
 
-<div class="content-container">
+<div class="content-container fixed">
   <!-- home component -->
   <div class="content-section" id="home">
     <app-home></app-home>
   </div>
   <!-- service component -->
-  <div class="content-section" id="services">
+  <div class="content-section relative" id="services">
     <app-services></app-services>
   </div>
 
@@ -17,7 +17,7 @@
     <app-portfolio></app-portfolio>
   </div>
   <!-- about component -->
-  <div class="content-section" id="about" style="background-color: teal">
+  <div class="content-section" id="about">
     <app-about></app-about>
   </div>
   <!-- contact component -->
@@ -26,6 +26,10 @@
   </div>
 </div>
 
-<div class="w-screen bg-teal-300 py-10 fixed bottom-0">
+<!-- <div *ngIf="currentSectionIndex == 1">
+  <app-service-sidebar></app-service-sidebar>
+</div> -->
+
+<div class="w-screen py-10 fixed bottom-0 z-10">
   <app-footer></app-footer>
 </div>
