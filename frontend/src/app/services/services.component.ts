@@ -90,7 +90,6 @@ export class ServicesComponent implements OnDestroy {
 
   selectService(index: number): void {
     this.currentServiceIndex = index;
-
     this.resetAutoChangeTimeout();
   }
 
