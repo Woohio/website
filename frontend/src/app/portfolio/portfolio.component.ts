@@ -37,6 +37,7 @@ export class PortfolioComponent implements OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   private autoChangeInterval = 5000; // Change every 5 seconds (5000 milliseconds)
   private autoChangeTimeout: any;
+  sliderPaused = false;
   portfolio = [
     {
       category: 'Visual Arts',
@@ -145,9 +146,9 @@ export class PortfolioComponent implements OnDestroy {
       ],
     },
   ];
-
   currentCategoryIndex = 0;
   currentWorkIndex = 0;
+  showModal = false; // Boolean flag to control modal visibility
 
   constructor(private cdr: ChangeDetectorRef) {
     this.startAutoChange();
@@ -162,9 +163,8 @@ export class PortfolioComponent implements OnDestroy {
     interval(this.autoChangeInterval)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        if (!this.autoChangeTimeout) {
+        if (!this.sliderPaused && !this.autoChangeTimeout) {
           this.nextCategory();
-          this.cdr.detectChanges();
         }
       });
   }
@@ -175,12 +175,9 @@ export class PortfolioComponent implements OnDestroy {
     this.resetAutoChangeTimeout();
   }
 
-  selectPortfolioCateogry(index: number): void {
+  selectPortfolioCategory(index: number): void {
     this.currentCategoryIndex = index;
-    this.resetAutoChangeTimeout();
-  }
-  selectWork(index: number): void {
-    this.currentWorkIndex = index;
+    this.resetAutoChangeTimeout(); // Reset auto change timeout when selecting a new category
   }
 
   resetAutoChangeTimeout(): void {
@@ -188,9 +185,34 @@ export class PortfolioComponent implements OnDestroy {
       clearTimeout(this.autoChangeTimeout);
     }
     this.autoChangeTimeout = setTimeout(() => {
-      this.autoChangeTimeout = null;
-      this.nextCategory(); // Continue to the next service after timeout
+      this.nextCategory(); // Trigger next category change after timeout
       this.cdr.detectChanges();
-    }, 5000); // Delay until next auto change time (3.5 seconds)
+    }, this.autoChangeInterval); // Set timeout for auto change interval
+  }
+
+  pauseSlider(): void {
+    this.sliderPaused = true;
+    if (this.autoChangeTimeout) {
+      clearTimeout(this.autoChangeTimeout);
+      this.autoChangeTimeout = null;
+    }
+  }
+
+  resumeSlider(): void {
+    this.sliderPaused = false;
+    this.resetAutoChangeTimeout(); // Resume auto change after slider is resumed
+  }
+
+  openModal(index: number): void {
+    this.currentWorkIndex = index;
+    this.showModal = true;
+    document.body.style.overflow = 'hidden';
+    this.pauseSlider(); // Pause slider when modal is opened
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    document.body.style.overflow = 'auto';
+    this.resumeSlider(); // Resume slider when modal is closed
   }
 }
