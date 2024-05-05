@@ -19,10 +19,16 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "angular-three": "^1.10.7",
+    "firebase": "^10.11.1",
+    "jquery": "^3.7.1",
+    "moment": "^2.29.4",
+    "ngx-image-compress": "^15.1.6",
+    "ngx-summernote": "^1.0.0",
     "rxjs": "~7.8.0",
+    "summernote": "^0.8.20",
+    "three": "^0.160.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0",
-    "three": "^0.160.0"
+    "zone.js": "~0.13.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.0",
