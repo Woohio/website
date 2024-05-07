@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/compat/app'; // Import only the base Firebase module
+import firebase from 'firebase'; // Import only the base Firebase module
 import 'firebase/firestore'; // Import Firestore
 @Injectable()
 export class DbService {

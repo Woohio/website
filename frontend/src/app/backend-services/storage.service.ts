@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase';
 import * as moment from 'moment';
 import { environment } from '../environments/environment';
 

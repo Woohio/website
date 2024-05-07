@@ -19,7 +19,7 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "angular-three": "^1.10.7",
-    "firebase": "^10.11.1",
+    "firebase": "^8.2.1",
     "jquery": "^3.7.1",
     "moment": "^2.29.4",
     "ngx-image-compress": "^15.1.6",

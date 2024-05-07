@@ -1,0 +1,135 @@
+<p>Manage The Portfolio Contents here</p>
+<div class="w-100 flex justify-end items-end px-16 gap-10">
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="openCategoryModal()"
+  >
+    New Category
+  </button>
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="openProjectModal()"
+  >
+    New Project
+  </button>
+</div>
+<!-- category form -->
+<div
+  class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50"
+  *ngIf="showCategoryModal"
+>
+  <div class="bg-white p-8 rounded-lg shadow-lg w-9/12">
+    <h2 class="text-xl font-semibold mb-4">Add New Category</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="submitCategoryForm()">
+      <div class="mb-4">
+        <label for="title" class="block text-sm font-medium text-gray-700"
+          >Title</label
+        >
+        <input
+          formControlName="title"
+          type="text"
+          id="title"
+          name="title"
+          required
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700"
+          >Description</label
+        >
+        <textarea
+          formControlName="description"
+          id="description"
+          name="description"
+          required
+          rows="4"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+        ></textarea>
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-400 transition-colors"
+          (click)="closeCategoryModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+        >
+          Add Category
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- project form -->
+<div
+  class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50"
+  *ngIf="showProjectModal"
+>
+  <div class="bg-white p-8 rounded-lg shadow-lg w-9/12">
+    <div *ngIf="categories.length > 0">
+      <h2 class="text-xl font-semibold mb-4">Add New Project</h2>
+      <form [formGroup]="projectForm" (ngSubmit)="submitProjectForm()">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700"
+            >Title</label
+          >
+          <input
+            formControlName="title"
+            type="text"
+            id="title"
+            name="title"
+            required
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="description"
+            class="block text-sm font-medium text-gray-700"
+            >Description</label
+          >
+          <textarea
+            formControlName="description"
+            id="description"
+            name="description"
+            required
+            rows="4"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+          ></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="button"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-400 transition-colors"
+            (click)="closeProjectModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+          >
+            Add Project
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="categories.length <= 0">
+      <h2>Add a project category first</h2>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-400 transition-colors"
+          (click)="closeProjectModal()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
